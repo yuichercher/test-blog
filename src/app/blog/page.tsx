@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import PageHeader from "@/components/page-header";
 import { blogs as allBlogs } from "#site/content";
 import Image from "next/image";
+import { withBasePath } from "@/lib/base-path";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 
@@ -30,11 +31,14 @@ export default function BlogPage() {
               className="group relative flex flex-col space-y-2"
             >
               {blog.image && (
-                <Image
-                  src={blog.image}
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={withBasePath(blog.image)}
                   alt={blog.title}
                   width={804}
                   height={452}
+                  loading="lazy"
+                  decoding="async"
                   className="border bg-muted transition-colors"
                 />
               )}

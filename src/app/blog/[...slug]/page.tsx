@@ -5,7 +5,9 @@ import { cn, formatDate } from "@/lib/utils";
 import "@/styles/mdx.css";
 
 import Image from "next/image";
+import { withBasePath } from "@/lib/base-path";
 import { siteConfig } from "@/config/site";
+import imageLoader from "@/lib/image-loader";
 import { Mdx } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -80,6 +82,7 @@ export default async function BlogPageItem({ params }: BlogPageItemProps) {
         {blog.author && (
           <div className="mt-4 flex space-x-4">
             <Image
+              loader={imageLoader}
               src={siteConfig.authorImage}
               alt={blog.author}
               width={42}
@@ -96,12 +99,12 @@ export default async function BlogPageItem({ params }: BlogPageItemProps) {
         )}
 
         {blog.image && (
-          <Image
-            src={blog.image}
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={withBasePath(blog.image)}
             alt={blog.title}
             width={720}
             height={405}
-            priority
             className="my-8 border bg-muted transition-colors"
           />
         )}
